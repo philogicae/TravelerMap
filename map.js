@@ -43,8 +43,9 @@ function geocodeAddress() {
 
 
 
-function addMarker(location = 0, lat = 0, lng = 0, color = 0) {
+function addMarker(location, lat, lng, color) {
     var coord = {
+        indice: coords.length+1,
         lat: lat || location.lat(),
         lng: lng || location.lng()
     };
@@ -52,9 +53,9 @@ function addMarker(location = 0, lat = 0, lng = 0, color = 0) {
         if (JSON.stringify(coord, ['lat', 'lng']) === JSON.stringify(coords[i], ['lat', 'lng']))
             return;
 
-    coords.push(coord);
     markers.push(new google.maps.Marker({
-        position: coord,
+        indice: coords.length+1,
+        position: new google.maps.LatLng(coord.lat, coord.lng),
         map: map,
         icon: {
             path: google.maps.SymbolPath.CIRCLE,
@@ -62,6 +63,7 @@ function addMarker(location = 0, lat = 0, lng = 0, color = 0) {
             scale: 3
         }
     }));
+    coords.push(coord);
 }
 
 function addLine(loc1, loc2, color) {
