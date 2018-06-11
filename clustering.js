@@ -26,7 +26,7 @@ function partitionner(coords, centroids) {
     let groups = [];
     for (let i in centroids)
         groups.push([]);
-    let total = 0;
+    let sse = 0;
 
     let min, cluster, distance;
     for (let coord of coords) {
@@ -40,11 +40,11 @@ function partitionner(coords, centroids) {
             }
         }
         groups[cluster].push(coord);
-        total += min;
+        sse += min * min;
     }
     return {
         groups: groups,
-        score: total
+        score: sse // Sum of Squared Errors
     };
 }
 
