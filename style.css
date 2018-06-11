@@ -1,0 +1,32 @@
+body {
+    background-color: rgb(214, 214, 214);
+}
+
+h1 {
+    font-family: Rockwell, serif;
+    color: rgb(55, 55, 55);
+    text-align: center;
+}
+
+.canvas {
+    width: 80%;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px;
+}
+
+.commandes {
+    position: relative;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto', 'sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}

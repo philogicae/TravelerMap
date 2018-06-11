@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Traveler Map</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+    <h1>Traveler Map</h1>
+    <div class="canvas" id="googleMap"></div>
+    <div class="commandes" id="add">
+        <input id="address" type="textbox" placeholder="Place, City, Country" autofocus>
+        <input id="submit" type="button" value="Add marker">
+        <input onclick="drawLines();" type=button value="Draw lines">
+        <input onclick="clustering();" type=button value="Show clusters">
+    </div>
+    <div class="commandes" id="remove">
+        <input onclick="showAll();" type=button value="Show all">
+        <input onclick="hideAll();" type=button value="Hide all">
+        <input onclick="deleteMarkers();" type=button value="Delete markers">
+        <input onclick="removeLines();" type=button value="Remove lines">
+        <input onclick="removeClusterLines();" type=button value="Hide clusters">
+    </div>
+    <div class="canvas" id="ktester"></div>
+
+    <script language="javascript" type="text/javascript" src="map.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcWqHg-9U3f3xWwYAE6MKF_xsu43aQD64&callback=initMap"></script>
+    <script language="javascript" type="text/javascript" src="clustering.js"></script>
+</body>
+
+</html>
