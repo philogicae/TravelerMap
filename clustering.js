@@ -21,7 +21,6 @@ function distanceHaversine(coord1, coord2) {
     return distance;
 }
 
-
 function partitionner(coords, centroids) {
     let groups = [];
     for (let i in centroids)
@@ -48,7 +47,6 @@ function partitionner(coords, centroids) {
     };
 }
 
-
 function remoyenner(groups, centroids) {
     let newcentroids = [];
     let x, y;
@@ -67,13 +65,12 @@ function remoyenner(groups, centroids) {
     return newcentroids;
 }
 
-
 function initCentroids(coords, k) {
     let bestcentroids;
     let bestscore = Infinity;
 
     let used, rand, centroids, score;
-    for (let i = 0; i < k * 5; i++) {
+    for (let i = 0; i < (k + 5); i++) {
         used = [];
         centroids = [];
         while (used.length != k) {
@@ -95,7 +92,6 @@ function initCentroids(coords, k) {
     return bestcentroids;
 }
 
-
 function kmeans(coords, k) {
     var groups;
     var centroids = initCentroids(coords, k);
@@ -115,6 +111,7 @@ function kmeans(coords, k) {
 }
 
 
+
 function elbowMethod(clusters) {
     let sse = 0;
     for (let i in clusters.centroids)
@@ -122,7 +119,6 @@ function elbowMethod(clusters) {
             sse += Math.pow(distanceHaversine(clusters.centroids[i], coord), 2);
     return sse;
 }
-
 
 function bestK(k, score) {
     let y = (x) => {
@@ -142,7 +138,6 @@ function bestK(k, score) {
     return best;
 }
 
-
 function autoKmeans(coords) {
     let clusters = [{}],
         k = [],
@@ -152,11 +147,11 @@ function autoKmeans(coords) {
         k.push(i);
         score.push(elbowMethod(clusters[i]));
     }
-
     let best = bestK(k, score);
     printGraph(k, score, best);
     return clusters[k[best]];
 }
+
 
 
 function printGraph(k, score, best) {

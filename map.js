@@ -43,28 +43,25 @@ function geocodeAddress() {
 
 
 
-function addMarker(location) {
+function addMarker(location = 0, lat = 0, lng = 0, color = 0) {
     var coord = {
-        indice: coords.length + 1,
-        lat: location.lat(),
-        lng: location.lng()
+        lat: lat || location.lat(),
+        lng: lng || location.lng()
     };
     for (let i = 0; i < coords.length; i++)
         if (JSON.stringify(coord, ['lat', 'lng']) === JSON.stringify(coords[i], ['lat', 'lng']))
             return;
-    coords.push(coord);
 
-    var marker = new google.maps.Marker({
-        indice: coords.length + 1,
-        position: location,
+    coords.push(coord);
+    markers.push(new google.maps.Marker({
+        position: coord,
         map: map,
         icon: {
             path: google.maps.SymbolPath.CIRCLE,
-            strokeColor: 'red',
+            strokeColor: color || 'red',
             scale: 3
         }
-    });
-    markers.push(marker);
+    }));
 }
 
 function addLine(loc1, loc2, color) {
@@ -81,7 +78,7 @@ function addLine(loc1, loc2, color) {
             offset: '50%'
         }]
     });
-    if(line.strokeColor == 'red')
+    if (line.strokeColor == 'red')
         lines.push(line);
     else if (line.strokeColor == 'green')
         clusterlines.push(line);
@@ -136,4 +133,13 @@ function clustering() {
     for (let i in clusters.centroids)
         for (let coord of clusters.groups[i])
             addLine(clusters.centroids[i], coord, 'green');
+}
+
+function randomCoords() {
+    let getRandom = (min, max, int = 0) => {
+        let val = Math.random() * (max - min) + min;
+        return int ? Math.round(val) : val;
+    };
+    for (let i = 0; i < getRandom(10, 20, 1); i++)
+        addMarker(0, getRandom(-84, 84), getRandom(-179, 179), 'blue');
 }
