@@ -93,10 +93,10 @@ function initCentroids(coords, k) {
 }
 
 function kmeans(coords, k) {
-    var groups;
-    var centroids = initCentroids(coords, k);
-    var oldcentroids;
-    var changed = true;
+    let groups;
+    let centroids = initCentroids(coords, k);
+    let oldcentroids;
+    let changed = true;
     while (changed) {
         groups = partitionner(coords, centroids).groups;
         oldcentroids = JSON.parse(JSON.stringify(centroids));
