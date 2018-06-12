@@ -142,7 +142,7 @@ function autoKmeans(coords) {
     let clusters = [{}],
         k = [],
         score = [];
-    for (let i = 1; i <= Math.ceil(coords.length/2); i++) {
+    for (let i = 1; i <= Math.ceil(2*coords.length/3); i++) {
         clusters.push(kmeans(coords, i));
         k.push(i);
         score.push(elbowMethod(clusters[i]));
