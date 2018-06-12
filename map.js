@@ -55,7 +55,7 @@ function addMarker(location, lat, lng, color) {
 
     markers.push(new google.maps.Marker({
         indice: coords.length+1,
-        position: new google.maps.LatLng(coord.lat, coord.lng),
+        position: location || new google.maps.LatLng(coord.lat, coord.lng),
         map: map,
         icon: {
             path: google.maps.SymbolPath.CIRCLE,
