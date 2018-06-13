@@ -140,8 +140,8 @@ function clustering() {
 function randomCoords() {
     let getRandom = (min, max, int = 0) => {
         let val = Math.random() * (max - min) + min;
-        return int ? Math.round(val) : Math.round(val * Math.pow(10, 10)) / Math.pow(10, 10);
+        return int ? Math.round(val) : val;
     };
-    for (let i = 0; i < getRandom(1, 10, 1); i++)
+    for (let i = 0; i < getRandom(10, 20, 1); i++)
         addMarker(0, getRandom(-84, 84), getRandom(-179, 179), 'blue');
 }

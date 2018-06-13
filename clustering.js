@@ -99,9 +99,9 @@ function kmeans(coords, k) {
     let changed = true;
     while (changed) {
         groups = partitionner(coords, centroids).groups;
-        oldcentroids = JSON.parse(JSON.stringify(centroids));
+        oldcentroids = JSON.stringify(centroids);
         centroids = remoyenner(groups, centroids);
-        if (JSON.stringify(centroids) == JSON.stringify(oldcentroids))
+        if (JSON.stringify(centroids) == oldcentroids)
             changed = false;
     }
     return {
@@ -113,10 +113,13 @@ function kmeans(coords, k) {
 
 
 function elbowMethod(clusters) {
-    let sse = 0;
+    let sse = 0,
+        distance;
     for (let i in clusters.centroids)
-        for (let coord of clusters.groups[i])
-            sse += Math.pow(distanceHaversine(clusters.centroids[i], coord), 2);
+        for (let coord of clusters.groups[i]) {
+            distance = distanceHaversine(clusters.centroids[i], coord);
+            sse += distance * distance;
+        }
     return sse;
 }
 
@@ -142,9 +145,9 @@ function autoKmeans(coords) {
     let clusters = [{}],
         k = [],
         score = [];
-    for (let i = 1; i <= Math.ceil(2*coords.length/3); i++) {
-        clusters.push(kmeans(coords, i));
+    for (let i = 1; i <= Math.ceil(2 * coords.length / 3); i++) {
         k.push(i);
+        clusters.push(kmeans(coords, i));
         score.push(elbowMethod(clusters[i]));
     }
     let best = bestK(k, score);
