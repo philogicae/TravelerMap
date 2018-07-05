@@ -3,6 +3,7 @@ var geocoder;
 var coords = [];
 var markers = [];
 var lines = [];
+var clusters = {};
 var clusterlines = [];
 
 var options = {
@@ -45,7 +46,7 @@ function geocodeAddress() {
 
 function addMarker(location, lat, lng, color) {
     var coord = {
-        indice: coords.length+1,
+        indice: coords.length + 1,
         lat: lat || location.lat(),
         lng: lng || location.lng()
     };
@@ -54,7 +55,7 @@ function addMarker(location, lat, lng, color) {
             return;
 
     markers.push(new google.maps.Marker({
-        indice: coords.length+1,
+        indice: coords.length + 1,
         position: location || new google.maps.LatLng(coord.lat, coord.lng),
         map: map,
         icon: {
@@ -89,8 +90,11 @@ function addLine(loc1, loc2, color) {
 
 function drawLines() {
     removeLines();
-    for (let i = 0; i < coords.length - 1; i++)
-        addLine(coords[i], coords[i + 1]);
+    for (let i = 0; i < coords.length; i++)
+        if (i == coords.length - 1)
+            addLine(coords[i], coords[0]);
+        else
+            addLine(coords[i], coords[i + 1]);
 }
 
 
@@ -129,12 +133,36 @@ function removeClusterLines() {
 
 
 
-function clustering() {
-    removeClusterLines();
-    let clusters = autoKmeans(coords);
+function updateCoords() {
+    coords = [];
     for (let i in clusters.centroids)
         for (let coord of clusters.groups[i])
-            addLine(clusters.centroids[i], coord, 'green');
+            coords.push(coord);
+}
+
+function clustering() {
+    removeClusterLines();
+    let oldClusters = JSON.stringify(clusters);
+    let calculate = new Promise(function (resolve, reject) {
+        clusters = autoKmeans(coords);
+        if (oldClusters != JSON.stringify(clusters))
+            resolve('Clustering : ok!');
+        else
+            reject('Clustering : fail!');
+    });
+
+    calculate.then(function (fromResolve) {
+        console.log(fromResolve);
+        for (let i in clusters.centroids)
+            for (let coord of clusters.groups[i])
+                addLine(clusters.centroids[i], coord, 'green');
+    }).catch(function (fromReject) {
+        console.log(fromReject);
+    });
+
+    calculateShortestRoad();
+    updateCoords();
+    drawLines();
 }
 
 function randomCoords() {
