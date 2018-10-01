@@ -106,11 +106,13 @@ function setMapAll(objs, map) {
 function showAll() {
     setMapAll(markers, map);
     setMapAll(lines, map);
+    setMapAll(clusterlines, map);
 }
 
 function hideAll() {
     setMapAll(markers, null);
     setMapAll(lines, null);
+    setMapAll(clusterlines, null);
 }
 
 function deleteMarkers() {
@@ -170,6 +172,8 @@ function randomCoords() {
         let val = Math.random() * (max - min) + min;
         return int ? Math.round(val) : val;
     };
-    for (let i = 0; i < getRandom(10, 20, 1); i++)
+    deleteMarkers();
+    for (let i = 0; i < getRandom(8, 15, 1); i++)
         addMarker(0, getRandom(-84, 84), getRandom(-179, 179), 'blue');
+    clustering();
 }

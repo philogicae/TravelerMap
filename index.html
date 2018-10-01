@@ -12,20 +12,21 @@
 
 <body>
     <h1>Traveler Map</h1>
+    <center>
+        <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem" target="_blank">What is the problem here ?</a>
+        <p>Green lines = the clusters / Red line = a fast and effective route      (Arnaud Soulier - 2018)</p>
+    </center>
     <div class="canvas" id="googleMap"></div>
     <div class="commandes" id="add">
         <input id="address" type="textbox" placeholder="Place, City, Country" autofocus>
         <input id="submit" type="button" value="Add marker">
-        <input onclick="drawLines();" type=button value="Draw lines">
-        <input onclick="clustering();" type=button value="Show clusters">
+        <input onclick="clustering();" type=button value="(re)Calculate">
         <input onclick="randomCoords();" type=button value="Random !">
     </div>
     <div class="commandes" id="remove">
         <input onclick="showAll();" type=button value="Show all">
         <input onclick="hideAll();" type=button value="Hide all">
         <input onclick="deleteMarkers();" type=button value="Delete markers">
-        <input onclick="removeLines();" type=button value="Remove lines">
-        <input onclick="removeClusterLines();" type=button value="Hide clusters">
     </div>
     <div class="canvas" id="ktester"></div>
 

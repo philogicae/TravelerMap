@@ -172,7 +172,7 @@ function printGraph(k, score, best) {
             size: 14
         }
     }], {
-        title: 'Automatic K-Means',
+        title: 'Automatic K-Means (using Elbow Method for Clustering)',
         xaxis: {
             title: 'Number of Clusters'
         },
